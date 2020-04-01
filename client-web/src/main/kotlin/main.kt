@@ -23,9 +23,12 @@ class ChatClient {
 
         onmessage = fun(event: MessageEvent) {
             val messageData = event.data as String
-            val encodedMessage = parseMessage(messageData)
 
-            messagesDiv.innerHTML = "${encodedMessage.userId} - ${encodedMessage.message}<br/>" + messagesDiv.innerHTML
+            when (val encodedMessage = parseMessage(messageData)) {
+                is Message -> {
+                    messagesDiv.innerHTML = "${encodedMessage.userId} - ${encodedMessage.message}<br/>" + messagesDiv.innerHTML
+                }
+            }
         }
     }
 

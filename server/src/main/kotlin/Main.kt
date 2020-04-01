@@ -38,8 +38,8 @@ class ChatServer(port: Int) : WebSocketServer(InetSocketAddress(port)) {
         println("error: $e")
     }
 
-    private fun sendToAll(message: Message) {
-        val string = stringifyMessage(message)
+    private fun sendToAll(event: ServerEvent) {
+        val string = stringifyMessage(event)
 
         println("sending to all: $string")
 
