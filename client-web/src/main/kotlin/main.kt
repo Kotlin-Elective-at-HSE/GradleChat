@@ -28,6 +28,16 @@ class ChatClient {
                 is Message -> {
                     messagesDiv.innerHTML = "${encodedMessage.userId} - ${encodedMessage.message}<br/>" + messagesDiv.innerHTML
                 }
+
+                is ConnectionChange -> {
+                    val connectionText = when (encodedMessage.connects) {
+                        true -> "connected"
+
+                        false -> "disconnected"
+                    }
+
+                    messagesDiv.innerHTML = "${encodedMessage.userId} $connectionText<br/>" + messagesDiv.innerHTML
+                }
             }
         }
     }

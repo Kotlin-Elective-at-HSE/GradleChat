@@ -11,7 +11,7 @@ class ChatServer(port: Int) : WebSocketServer(InetSocketAddress(port)) {
     override fun onOpen(connection: WebSocket, handshake: ClientHandshake?) {
         val id = nextId.incrementAndGet()
 
-        val message = Message(id, "connected")
+        val message = ConnectionChange(id, connects = true)
 
         println("${message.userId} connects")
         sendToAll(message)
@@ -19,7 +19,7 @@ class ChatServer(port: Int) : WebSocketServer(InetSocketAddress(port)) {
     }
 
     override fun onClose(connection: WebSocket, code: Int, reason: String?, remote: Boolean) {
-        val message = Message(connection.getAttachment(), "disconnected")
+        val message = ConnectionChange(connection.getAttachment(), connects = false)
         println("${message.userId} disconnects")
         sendToAll(message)
     }

@@ -13,6 +13,12 @@ data class Message(
         val message: String
 ) : ServerEvent()
 
+@Serializable
+data class ConnectionChange(
+        val userId: Int,
+        val connects: Boolean
+) : ServerEvent()
+
 private val json = Json(JsonConfiguration.Stable)
 
 fun parseMessage(message: String) = json.parse(ServerEvent.serializer(), message)
